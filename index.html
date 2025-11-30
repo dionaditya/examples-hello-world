@@ -397,12 +397,6 @@
             // Payout Seeder (fixed bulanan) dihitung terpisah, di sini hanya menampilkan P2P Fee yang masuk ke Platform
             totalPlatformRevenue = numViews * VIEWER_P2P_FEE;
             
-            // Update visibility
-            seederPayoutRow.style.display = 'flex';
-            seederPayoutRow.classList.add('opacity-50');
-            platformCentralFeeViewRow.style.display = 'none';
-            viewerP2pFeeRow.style.display = 'flex';
-
 
         } else { // no_seeder (Centralized)
             // Centralized: Customer pays Creator Price + PLATFORM_CENTRAL_FEE (50k + 8k = 58k)
@@ -410,10 +404,6 @@
 
             totalPlatformRevenue = numViews * PLATFORM_CENTRAL_FEE;
             
-            // Update visibility
-            seederPayoutRow.style.display = 'none';
-            platformCentralFeeViewRow.style.display = 'flex';
-            viewerP2pFeeRow.style.display = 'none';
         }
 
         
