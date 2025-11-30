@@ -1,80 +1,583 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hello, Deno</title>
-  <link rel="preload" href="https://demo-styles.deno.deno.net/fonts/Moranga-Regular.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="https://demo-styles.deno.deno.net/fonts/Moranga-Medium.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="https://demo-styles.deno.deno.net/fonts/Recursive_Variable.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="https://demo-styles.deno.deno.net/styles.css">
-  <style>
-    img {
-      display: inline-block;
-      vertical-align: middle;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panggungku: Rumah Abadi bagi Karya Indonesia</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        /* Konfigurasi untuk warna hangat dan gradien */
+        .bg-gradient-primary {
+            background-image: linear-gradient(to right bottom, #FCE7F3, #FBBF24); /* Pink muda ke Emas hangat */
+        }
+        .text-gradient-primary {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #9D174D, #4C1D95); /* Merah gelap ke Ungu royal */
+        }
+        .bg-card-gradient {
+            background-image: linear-gradient(135deg, #FFFBEB 0%, #FDF4FF 100%); /* Latar belakang card yang sangat lembut */
+        }
+        /* Style untuk simulasi yang dapat diperluas */
+        .simulation-container {
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out, opacity 0.3s;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            padding: 0 1rem;
+        }
+        .simulation-container.expanded {
+            max-height: 1000px; /* Nilai besar agar cukup untuk konten */
+            opacity: 1;
+            padding: 1.5rem 1rem;
+        }
+    </style>
 </head>
+<body class="bg-gray-50 font-sans antialiased">
 
-<body>
+    <!-- 1. HEADER (NAVIGASI) -->
+    <header class="bg-white/90 backdrop-blur-sm shadow-md fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-gradient-primary">Panggungku</div>
+            <nav class="space-x-8 hidden md:flex">
+                <a href="#ekosistem" class="text-gray-600 hover:text-pink-600 transition duration-300">Ekosistem</a>
+                <a href="#perbedaan" class="text-gray-600 hover:text-pink-600 transition duration-300">Mengapa Panggungku</a>
+                <a href="#filosofi" class="text-gray-600 hover:text-pink-600 transition duration-300">Filosofi Harga</a>
+            </nav>
+            <a href="#" class="px-6 py-2 border border-pink-500 text-pink-500 rounded-full hover:bg-pink-50 transition duration-300 font-medium">Masuk</a>
+        </div>
+    </header>
+
+    <!-- 2. HERO SECTION (FULL HEIGHT DENGAN THREE.JS) -->
+    <section id="hero-section" class="relative overflow-hidden h-screen flex items-center justify-center">
+        
+        <!-- CANVAS 3D LATAR BELAKANG -->
+        <canvas id="panggungku-canvas" class="absolute inset-0 w-full h-full"></canvas>
+
+        <!-- KONTEN UTAMA HERO SECTION (Overlay) -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 text-center text-white p-6 rounded-xl bg-black/30 backdrop-blur-sm">
+            <p class="text-lg font-semibold text-yellow-300 mb-4">Panggungku: Ruang Aman Kreator</p>
+            <h1 class="text-6xl sm:text-7xl lg:text-8xl font-extrabold mb-6 leading-tight tracking-tighter">
+                Karya Tak Pernah Mati. Ia Hanya Menemukan <span class="text-pink-400 italic">Rumah yang Tepat.</span>
+            </h1>
+            <p class="text-xl text-gray-200 mb-10 max-w-3xl mx-auto">
+                Panggungku lahir dari sebuah janji: setiap karya berharga berhak hidup, bebas dari rasa takut akan kehilangannya. Ini adalah panggung baru yang benar-benar milik kita.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <a href="#waiting-list" class="px-10 py-4 bg-pink-600 text-white font-bold rounded-full shadow-lg hover:bg-pink-700 transition duration-300 transform hover:scale-105">
+                    Mulai Unggah Karya Pertama Anda
+                </a>
+                <a href="#ekosistem" class="px-10 py-4 border border-white text-white font-bold rounded-full hover:bg-white/20 transition duration-300">
+                    Pelajari Kisahnya
+                </a>
+            </div>
+        </div>
+    </section>
+
     <main>
-      <section>
-        <a href="https://deno.com/deploy">
-        </a>
-      <h1>
-        <p>
-          Hello, Deno!
-        </p>
-      </h1>
-      <p>
-        This little example is being served by <a href="https://deno.com/">Deno</a>.
-        You can run it locally or in porduction on <a href="https://deno.com/deploy">Deno Deploy</a> or other hosting platforms.
-      </p>
-      <ul>
-        <li>Run it locally with<code>deno task dev</code></li>
-        <li>Deploy it to <a href="https://deno.com/deploy">Deno Deploy</a> via the CLI by running<code>deno deploy</code></li>
-        <li>Run it locally and share it publically by running <code>deno deploy --connected</code></li>
-      </ul>
-    </section>
-      <hr>
-    <section>
-      <h2>What's next?</h2>
-      <p>
-        You can clone this example and deploy it to Deno Deploy in just a few clicks
-        <a href="https://app.deno.com/new?clone=https://github.com/denoland/examples&path=hello-world"><img src="https://deno.com/button" alt="Deploy on Deno"/></a>
-      </p>
-      <ul>
-        <li>
-          <a href="https://docs.deno.com/examples">More examples in the Deno Docs</a>
-        </li>
-        <li>
-          <a href="https://deno.com/deploy">Deno Deploy Early Access</a>
-        </li>
-      </ul>
-    </section>
+        <!-- 3. NARASI EKOSISTEM -->
+        <section id="ekosistem" class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl font-extrabold text-gray-900 mb-12">Sebuah Ekosistem yang Digerakkan oleh Rasa Percaya</h2>
+                
+                <div class="grid md:grid-cols-3 gap-10">
+                    <!-- Kartu 1: Kreator -->
+                    <div class="p-8 rounded-2xl bg-card-gradient shadow-2xl border-t-4 border-pink-500 transform hover:-translate-y-1 transition duration-500">
+                        <span class="text-5xl mb-4 inline-block text-pink-500">✍️</span>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Bagi Sang Kreator: <strong>100%</strong> Hak Penuh Anda</h3>
+                        <p class="text-gray-600 mb-4">
+                            Anda membayar <strong>biaya per unggah awal</strong> (sekitar <strong>Rp 50.000 / 100MB</strong>) untuk menjamin keberadaan karya Anda. Ini adalah dana inti platform. Setelah itu, Anda berhak mendapatkan <strong>100%</strong> dari harga yang Anda tetapkan per tayangan.
+                        </p>
+                        <blockquote class="text-sm italic text-gray-500 mt-4 border-l-4 border-yellow-500 pl-3">
+                            “Biaya distribusi yang mahal ditanggung oleh penonton, bukan kreator.”
+                        </blockquote>
+                    </div>
+
+                    <!-- Kartu 2: Penonton -->
+                    <div class="p-8 rounded-2xl bg-card-gradient shadow-2xl border-t-4 border-indigo-500 transform hover:-translate-y-1 transition duration-500">
+                        <span class="text-5xl mb-4 inline-block text-indigo-500">🤝</span>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Bagi Penonton Setia: Insentif untuk P2P</h3>
+                        <p class="text-gray-600 mb-4">
+                            Anda membayar harga konten kreator. Jika Anda mendapatkan karya dari Penjaga Karya (P2P), Anda hanya dikenakan <strong>Biaya Seeder</strong> (Rp 5.000). Jika tidak ada Seeder, Anda menanggung <strong>Biaya Platform Sentral</strong> (Rp 8.000).
+                        </p>
+                        <p class="text-sm italic text-gray-500 mt-4">
+                            Dukungan P2P (Rp 55.000) sedikit lebih murah dibandingkan Sentral (Rp 58.000).
+                        </p>
+                    </div>
+
+                    <!-- Kartu 3: Penjaga Karya -->
+                    <div class="p-8 rounded-2xl bg-card-gradient shadow-2xl border-t-4 border-teal-500 transform hover:-translate-y-1 transition duration-500">
+                        <span class="text-5xl mb-4 inline-block text-teal-500">🛡️</span>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Bagi Penjaga Karya: Pahlawan Desentralisasi</h3>
+                        <p class="text-gray-600 mb-4">
+                            Anda menjaga karya hidup dan memastikan harga tontonan tetap rendah. Anda menerima biaya jasa tetap <strong>Rp 5.000 per view</strong> dari Biaya Seeder yang dibayarkan penonton saat P2P aktif. Ini adalah insentif yang jelas bagi partisipasi.
+                        </p>
+                        <p class="text-sm italic text-gray-500 mt-4">
+                            Anda adalah benteng digital bagi karya yang Anda cintai.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. MENGAPA PANGGUNGKU, BUKAN YANG LAIN (Narasi Sensor & Kreator Kecil) -->
+        <section id="perbedaan" class="py-24 bg-gray-100">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-extrabold text-gray-900 mb-16 text-center">Mengapa Panggungku, Bukan Ruang yang Lain?</h2>
+
+                <div class="lg:flex lg:space-x-12">
+                    <div class="lg:w-1/2 mb-10 lg:mb-0 p-8 rounded-2xl bg-white shadow-xl border-t-4 border-red-500">
+                        <h3 class="text-3xl font-bold text-red-700 mb-4">Jeritan Karya yang Hilang Tiba-Tiba</h3>
+                        <p class="text-lg text-gray-600 leading-relaxed">
+                            Pernahkah Anda bertanya mengapa karya penting di platform raksasa tiba-tiba hilang? Karena di sana, Anda hanya menitipkan karya kepada satu penjaga kunci. Ketika kebijakannya berubah - entah karena tuntutan *advertiser* atau aturan negara yang kaku - pintu bisa dikunci, dan karya Anda lenyap. Kami menyebutnya sensor terselubung. Di Panggungku, karya Anda dilindungi oleh <strong>solidaritas komunitas</strong>, tersebar di banyak titik. Tidak ada satu tombol *takedown* sentral yang bisa memadamkan nyala api kreasi Anda.
+                        </p>
+                        <p class="text-base text-gray-500 mt-4">
+                            Kami bukan gudang, kami adalah jaringan akar yang kuat.
+                        </p>
+                    </div>
+
+                    <div class="lg:w-1/2 p-8 rounded-2xl bg-white shadow-xl border-t-4 border-green-500">
+                        <h3 class="text-3xl font-bold text-green-700 mb-4">Rumah Ideal untuk Sang Pionir Kecil</h3>
+                        <p class="text-lg text-gray-600 leading-relaxed">
+                            Platform lain meminta komitmen server bulanan yang mahal, memaksa kreator kecil untuk mencari untung sebelum karyanya sempat dikenal. Kami membalik logikanya: Anda cukup membayar <strong>saat mengunggah</strong>. Biaya itu menopang inti platform. Biaya distribusi yang murah tetap ada (Rp 8.000), tetapi penonton mendapat insentif untuk menggunakan P2P yang lebih murah lagi (Rp 5.000).
+                        </p>
+                        <p class="text-base text-gray-500 mt-4">
+                            Kreator kecil adalah jantung Panggungku, bukan sekadar pelengkap iklan.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. FILOSOFI HARGA (Gaya Storytelling + SIMULASI) -->
+        <section id="filosofi" class="py-24 bg-white">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl font-extrabold text-gray-900 mb-8">Filosofi Harga: <strong>100%</strong> untuk Kreator, Insentif P2P Ekstrem</h2>
+                <div class="max-w-3xl mx-auto">
+                    <p class="text-xl text-gray-600 mb-6 leading-relaxed">
+                        Kami mengadopsi Model Biaya Berlapis (Layered Fee). Kreator mendapat <strong>100%</strong> dari harga konten. Platform Fee Sentral kini hanya <strong>Rp 8.000</strong> per tayangan, tetapi distribusi P2P masih lebih murah (hanya Rp 5.000), mendorong komunitas untuk mendistribusikan karya.
+                    </p>
+                    <p class="text-xl text-gray-600 mb-10 leading-relaxed">
+                        Jika 100% penonton Anda menggunakan P2P, Anda mendapatkan Rp 5.000.000, dan Platform (Panggungku) hanya mendapatkan Rp 0 dari biaya tayang. Panggungku hanya mengandalkan biaya unggah di awal.
+                    </p>
+
+                    <!-- SIMULASI NILAI EKONOMI (Expandable) -->
+                    <div class="mt-12 w-full text-left rounded-2xl bg-indigo-50 border-2 border-indigo-200 shadow-xl">
+                        <!-- Tombol Expand -->
+                        <button id="toggle-simulasi" onclick="toggleSimulation()" class="w-full flex justify-between items-center p-5 text-indigo-800 font-extrabold text-lg hover:bg-indigo-100 transition duration-300 rounded-2xl">
+                            <span>🧪 Coba Simulasi Pendapatan Kreator (<strong>100%</strong> Payout)</span>
+                            <span id="toggle-icon" class="text-2xl transition-transform duration-500">▼</span>
+                        </button>
+                        
+                        <!-- Konten Simulasi (Awalnya tersembunyi/collapsed) -->
+                        <div id="simulasi-content" class="simulation-container">
+                            <div class="p-4 bg-white rounded-xl shadow-inner">
+                                <!-- Input -->
+                                
+                                <label for="numViews" class="block text-gray-700 font-semibold mb-2">Jumlah Total Penonton (Views):</label>
+                                <input 
+                                    type="number" 
+                                    id="numViews" 
+                                    value="100" 
+                                    min="1"
+                                    oninput="calculateEarnings()"
+                                    class="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500"
+                                >
+                                
+                                <label for="scenario" class="block text-gray-700 font-semibold mb-2">Pilih Skenario (Asumsi Harga Konten Kreator Rp 50.000):</label>
+                                <select 
+                                    id="scenario" 
+                                    onchange="calculateEarnings()"
+                                    class="w-full p-3 mb-6 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 bg-white"
+                                >
+                                    <option value="with_seeder">P2P (Dengan Penjaga Karya) - TOTAL CUSTOMER Rp 55.000</option>
+                                    <option value="no_seeder">Sentral (Tanpa Penjaga Karya) - TOTAL CUSTOMER Rp 58.000</option>
+                                </select>
+                                
+                                <!-- Hasil -->
+                                <div class="space-y-4">
+                                    
+                                    <div class="flex justify-between items-center border-b pb-2">
+                                        <span class="text-lg font-medium text-gray-600">Harga Konten Kreator per View (<strong>100%</strong> untuk Kreator)</span>
+                                        <span id="result-creator-price" class="text-lg font-bold text-green-700">Rp 50.000</span>
+                                    </div>
+
+                                    <div class="flex justify-between items-center border-b pb-2 text-pink-600">
+                                        <span class="text-lg font-medium text-pink-600">Biaya Platform Sentral per View (Hanya dibayar jika NO SEEDER)</span>
+                                        <span id="result-platform-fee-view" class="text-lg font-bold">Rp 8.000</span>
+                                    </div>
+                                    
+                                    <div id="seeder-fee-view-row" class="flex justify-between items-center border-b pb-2 text-teal-600">
+                                        <span class="text-lg font-medium text-teal-600">Biaya Penjaga Karya per View (Hanya dibayar jika WITH SEEDER)</span>
+                                        <span id="result-seeder-fee-view" class="text-lg font-bold">Rp 5.000</span>
+                                    </div>
+                                    
+                                    <div class="flex justify-between items-center pt-2 border-t-2 border-gray-300">
+                                        <span class="text-xl font-bold text-gray-800">TOTAL DIBAYAR CUSTOMER per View</span>
+                                        <span id="result-price-per-view" class="text-xl font-extrabold text-indigo-700">Rp 55.000</span>
+                                    </div>
+
+                                    <!-- Bagian Ringkasan Payout -->
+                                    <div class="mt-8 pt-4 border-t border-gray-200">
+                                        <h3 class="text-2xl font-extrabold mb-4 text-gray-900">Ringkasan Payout (Total 100 Views)</h3>
+                                    </div>
+                                    
+                                    <!-- Pendapatan Bersih Kreator -->
+                                    <div class="flex justify-between items-center p-3 rounded-lg bg-green-50 border border-green-300">
+                                        <span class="text-xl font-bold text-green-700">Pendapatan Bersih Kreator (<strong>100%</strong> dari Harga Konten)</span>
+                                        <span id="result-net" class="text-xl font-extrabold text-green-700">Rp 5.000.000</span>
+                                    </div>
+
+                                    <!-- Payout Seeder -->
+                                    <div id="seeder-payout-row" class="flex justify-between items-center p-3 rounded-lg bg-teal-50 border border-teal-300">
+                                        <span class="text-lg font-medium text-teal-800">Total Payout ke Penjaga Karya</span>
+                                        <span id="result-seeder-payout" class="text-lg font-bold text-teal-800">Rp 500.000</span>
+                                    </div>
+                                    
+                                    <!-- Pendapatan Platform -->
+                                    <div class="flex justify-between items-center p-3 rounded-lg bg-pink-50 border border-pink-300">
+                                        <span class="text-lg font-medium text-pink-800">Total Revenue Panggungku (Dari Biaya Platform Sentral)</span>
+                                        <span id="result-op" class="text-lg font-bold text-pink-800">Rp 0</span>
+                                    </div>
+                                    
+                                    <div class="mt-4 text-sm italic text-gray-500">
+                                        * Catatan: Revenue Panggungku pada skenario P2P hanya berasal dari Biaya Per Unggah Awal.
+                                    </div>
+
+                                </div>
+                                
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END SIMULASI -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. BERGABUNG (Waiting List GForm) -->
+        <section id="waiting-list" class="py-24 bg-gradient-to-r from-pink-600 to-purple-800 text-white">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-5xl font-extrabold mb-6 leading-snug">Jadilah yang Pertama Tahu.</h2>
+                <p class="text-2xl font-light mb-10 opacity-90">
+                    Panggungku akan segera diluncurkan. Bergabunglah dalam daftar tunggu kami untuk mendapatkan akses awal dan kesempatan menjadi Penjaga Karya pertama!
+                </p>
+                
+                <!-- Formulir Placeholder untuk Waiting List (Menuju GForm) -->
+                <form action="https://docs.google.com/forms/d/e/PLACEHOLDER_GFORM_URL/viewform" target="_blank" class="flex flex-col sm:flex-row gap-4 items-stretch justify-center">
+                    <input 
+                        type="email" 
+                        placeholder="Masukkan alamat Email Anda..." 
+                        required
+                        class="w-full sm:w-2/3 p-4 rounded-full text-gray-900 border-2 border-transparent focus:border-pink-500 focus:outline-none transition duration-300 shadow-lg"
+                    >
+                    <button 
+                        type="submit"
+                        class="w-full sm:w-1/3 px-8 py-4 bg-yellow-400 text-purple-800 font-extrabold rounded-full shadow-xl hover:bg-yellow-300 transition duration-300 transform hover:scale-105"
+                    >
+                        Gabung Daftar Tunggu
+                    </button>
+                </form>
+                <p class="text-sm mt-4 opacity-70">Anda akan diarahkan ke formulir eksternal (Google Form) untuk melengkapi pendaftaran.</p>
+            </div>
+        </section>
     </main>
-    <hr>
-    <footer>
-      <section>
-      <ul class="flex-btwn">
-        <li>
-          <a href="https://deno.com">BlueSky</a>
-        </li>
-        <li>
-          <a href="https://deno.com">Twitter</a>
-        </li>
-        <li>
-          <a href="https://deno.com">YouTube</a>
-        </li>
-        <li>
-          <a href="https://deno.com">Newsletter</a>
-        </li>
-        <li>
-          <a href="https://deno.com">Deno</a>
-        </li>
-      </ul>
-      </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-400 py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="text-xl font-bold text-pink-500 mb-4">Panggungku</div>
+            <p class="text-sm">Hak Cipta © 2025 Panggungku. Rumah Abadi bagi Kreator Indonesia.</p>
+        </div>
     </footer>
+
+
+<script>
+    // Fungsi utilitas untuk format mata uang Rupiah
+    const formatRupiah = (number) => {
+        return new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        }).format(number);
+    };
+    
+    // Konstanta Biaya Tetap (Fixed Fees)
+    // Biaya Platform Sentral kini Rp 8.000
+    const PLATFORM_FEE_PER_VIEW = 8000; 
+    const SEEDER_FEE_PER_VIEW = 5000;   // Fixed fee for P2P distribution
+    const CREATOR_PRICE_DEFAULT = 50000; // Default creator price for simulation
+
+    // Fungsi Simulasi Ekonomi
+    function calculateEarnings() {
+        const numViewsElement = document.getElementById('numViews');
+        const scenarioElement = document.getElementById('scenario');
+        const numViews = parseFloat(numViewsElement.value) || 0;
+        const scenario = scenarioElement.value;
+        
+        const creatorPrice = CREATOR_PRICE_DEFAULT;
+        let seederFeePerView, platformOperationalFeePerView, pricePerView;
+        let totalPlatformRevenue, totalSeederPayout;
+
+        // Tentukan komponen biaya berdasarkan skenario
+        if (scenario === 'with_seeder') {
+            // P2P: Customer pays Creator Price + SEEDER_FEE. Platform Fee is 0.
+            seederFeePerView = SEEDER_FEE_PER_VIEW; 
+            platformOperationalFeePerView = 0; // Panggungku gets 0 per view here.
+            
+            pricePerView = creatorPrice + seederFeePerView; // 50k + 5k = 55k
+
+            totalSeederPayout = numViews * SEEDER_FEE_PER_VIEW;
+            totalPlatformRevenue = 0; // Panggungku only earns from the initial upload fee.
+
+            // Update visibility for Seeder components
+            document.getElementById('seeder-fee-view-row').style.display = 'flex';
+            document.getElementById('seeder-payout-row').style.display = 'flex';
+
+        } else { // no_seeder (Centralized)
+            // Centralized: Customer pays Creator Price + PLATFORM_FEE. Seeder Fee is 0.
+            seederFeePerView = 0;
+            platformOperationalFeePerView = PLATFORM_FEE_PER_VIEW; 
+            
+            pricePerView = creatorPrice + platformOperationalFeePerView; // 50k + 8k = 58k
+
+            totalSeederPayout = 0;
+            totalPlatformRevenue = numViews * PLATFORM_FEE_PER_VIEW;
+
+            // Update visibility for Seeder components
+            document.getElementById('seeder-fee-view-row').style.display = 'none';
+            document.getElementById('seeder-payout-row').style.display = 'none';
+        }
+
+        // Perhitungan yang konsisten
+        const totalCreatorNet = numViews * creatorPrice;
+        
+        // Update UI
+        document.getElementById('result-creator-price').textContent = formatRupiah(creatorPrice);
+        
+        // Dynamic fee display
+        const platformFeeDisplay = document.getElementById('result-platform-fee-view');
+        platformFeeDisplay.textContent = formatRupiah(PLATFORM_FEE_PER_VIEW);
+        platformFeeDisplay.parentElement.classList.toggle('opacity-50', scenario === 'with_seeder');
+        platformFeeDisplay.parentElement.classList.toggle('opacity-100', scenario === 'no_seeder');
+
+        const seederFeeDisplay = document.getElementById('result-seeder-fee-view');
+        seederFeeDisplay.textContent = formatRupiah(SEEDER_FEE_PER_VIEW);
+        seederFeeDisplay.parentElement.classList.toggle('opacity-50', scenario === 'no_seeder');
+        seederFeeDisplay.parentElement.classList.toggle('opacity-100', scenario === 'with_seeder');
+
+        // Total
+        document.getElementById('result-price-per-view').textContent = formatRupiah(pricePerView);
+        
+        // Ringkasan Payout
+        document.getElementById('result-net').textContent = formatRupiah(totalCreatorNet);
+        document.getElementById('result-seeder-payout').textContent = formatRupiah(totalSeederPayout);
+        document.getElementById('result-op').textContent = formatRupiah(totalPlatformRevenue);
+    }
+    
+    // Fungsi untuk Toggle Expand/Collapse Simulasi
+    function toggleSimulation() {
+        const content = document.getElementById('simulasi-content');
+        const icon = document.getElementById('toggle-icon');
+
+        content.classList.toggle('expanded');
+        
+        if (content.classList.contains('expanded')) {
+            icon.style.transform = 'rotate(180deg)';
+            calculateEarnings(); // Hitung pertama kali saat diexpand
+        } else {
+            icon.style.transform = 'rotate(0deg)';
+        }
+    }
+    
+    // Three.js Network Background for Panggungku
+    function initThreeJS() {
+        const container = document.getElementById('hero-section');
+        const canvas = document.getElementById('panggungku-canvas');
+        
+        if (!container || !canvas) {
+            console.error("Canvas or container not found.");
+            return;
+        }
+
+        let width = container.clientWidth;
+        let height = container.clientHeight;
+
+        let scene, camera, renderer;
+        let particles, particleGeometry, particleMaterial;
+        let lines, lineGeometry, lineMaterial;
+        const particleCount = 200;
+        const maxDistance = 70; // Jarak maksimum untuk garis
+
+        // Mouse tracking
+        let mouseX = 0, mouseY = 0;
+
+        // Inisialisasi
+        scene = new THREE.Scene();
+        
+        // Warna latar belakang disetel agak gelap agar partikel terlihat
+        scene.background = new THREE.Color(0x180025); 
+
+        camera = new THREE.PerspectiveCamera(75, width / height, 1, 1000);
+        camera.position.z = 300;
+
+        renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+        renderer.setSize(width, height);
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        // --- PARTIKEL (NODE) ---
+        particleGeometry = new THREE.BufferGeometry();
+        const positions = [];
+        const particleArray = []; // Simpan objek partikel untuk manipulasi posisi
+
+        for (let i = 0; i < particleCount; i++) {
+            // Posisi acak di ruang 3D
+            const x = (Math.random() - 0.5) * 800;
+            const y = (Math.random() - 0.5) * 600;
+            const z = (Math.random() - 0.5) * 500;
+            positions.push(x, y, z);
+            particleArray.push(new THREE.Vector3(x, y, z));
+        }
+
+        particleGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+        
+        // Material partikel (titik)
+        particleMaterial = new THREE.PointsMaterial({
+            color: 0xFBBF24, // Emas hangat
+            size: 3,
+            sizeAttenuation: true
+        });
+
+        particles = new THREE.Points(particleGeometry, particleMaterial);
+        scene.add(particles);
+
+        // --- GARIS (KONEKSI) ---
+        lineMaterial = new THREE.LineBasicMaterial({
+            color: 0xDB2777, // Pink gelap
+            opacity: 0.5,
+            transparent: true,
+            linewidth: 1
+        });
+        lineGeometry = new THREE.BufferGeometry();
+        lines = new THREE.LineSegments(lineGeometry, lineMaterial);
+        scene.add(lines);
+
+        // Fungsi untuk mengupdate garis
+        function updateLines() {
+            const linePositions = [];
+            const posArray = particleGeometry.attributes.position.array;
+            let p1, p2, distance;
+
+            for (let i = 0; i < particleCount; i++) {
+                p1 = particleArray[i]; // Ambil dari array vector
+                
+                // Cek koneksi antar partikel
+                for (let j = i + 1; j < particleCount; j++) {
+                    p2 = particleArray[j];
+                    
+                    distance = p1.distanceTo(p2);
+
+                    if (distance < maxDistance) {
+                        // Tambahkan garis jika jarak kurang dari batas
+                        linePositions.push(p1.x, p1.y, p1.z);
+                        linePositions.push(p2.x, p2.y, p2.z);
+                    }
+                }
+                
+                // Interaksi dengan kursor (jaringan merespons sentuhan)
+                const mouseVector = new THREE.Vector3(mouseX, mouseY, 0);
+                distance = p1.distanceTo(mouseVector);
+                
+                if (distance < maxDistance * 2) {
+                     // Tambahkan garis tipis ke kursor jika dekat
+                     linePositions.push(p1.x, p1.y, p1.z);
+                     linePositions.push(mouseX, mouseY, 0);
+                }
+            }
+
+            lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+            lineGeometry.attributes.position.needsUpdate = true;
+        }
+
+
+        // Loop Animasi
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotasi Kamera atau Scene perlahan
+            particles.rotation.y += 0.0005;
+            particles.rotation.x += 0.0002;
+            lines.rotation.y += 0.0005;
+            lines.rotation.x += 0.0002;
+
+            updateLines();
+            renderer.render(scene, camera);
+        }
+
+        // Penanganan Resize
+        function onWindowResize() {
+            width = container.clientWidth;
+            height = container.clientHeight;
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+        }
+
+        // Penanganan Gerakan Kursor
+        function onMouseMove(event) {
+            // Konversi posisi kursor ke koordinat 3D yang relatif terhadap scene
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            
+            let ndcX = (x / width) * 2 - 1;
+            let ndcY = -(y / height) * 2 + 1;
+            
+            // Proyeksikan kursor ke bidang Z=0
+            const vector = new THREE.Vector3(ndcX, ndcY, 0.5);
+            vector.unproject(camera);
+            
+            const dir = vector.sub(camera.position).normalize();
+            const distance = -camera.position.z / dir.z;
+            const pos = camera.position.clone().add(dir.multiplyScalar(distance));
+            
+            mouseX = pos.x;
+            mouseY = pos.y;
+        }
+        
+        // Penanganan Touch Events (Mobile/Touchscreen)
+        function onTouchMove(event) {
+            if (event.touches.length > 0) {
+                const touch = event.touches[0];
+                onMouseMove(touch); // Reuse mouse move logic
+            }
+        }
+
+        window.addEventListener('resize', onWindowResize, false);
+        document.addEventListener('mousemove', onMouseMove, false);
+        document.addEventListener('touchmove', onTouchMove, { passive: false });
+
+
+        // Pastikan scene di-render sekali sebelum animasi dimulai
+        renderer.render(scene, camera);
+        animate();
+    }
+
+    // Hanya jalankan setelah DOM siap
+    window.onload = function () {
+        initThreeJS();
+        // Memastikan simulasi dihitung saat pertama kali dibuka (jika dibuka)
+        const content = document.getElementById('simulasi-content');
+        if (content.classList.contains('expanded')) {
+            calculateEarnings(); 
+        }
+    };
+</script>
+
 </body>
 </html>
