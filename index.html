@@ -62,7 +62,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 text-center text-white p-6 rounded-xl bg-black/30 backdrop-blur-sm">
             <p class="text-lg font-semibold text-yellow-300 mb-4">Panggungku: Ruang Aman Kreator</p>
             <h1 class="text-6xl sm:text-7xl lg:text-8xl font-extrabold mb-6 leading-tight tracking-tighter">
-                Karya Tak Pernah Mati. <br /> Ia Hanya Menemukan <span class="text-pink-400 italic">Rumah yang Tepat.</span>
+                Karya Tak Pernah Mati. <br/> <br /> Ia Hanya Menemukan <span class="text-pink-400 italic">Rumah yang Tepat.</span>
             </h1>
             <p class="text-xl text-gray-200 mb-10 max-w-3xl mx-auto">
                 Panggungku lahir dari sebuah janji: setiap karya berharga berhak hidup, bebas dari rasa takut akan kehilangannya. Ini adalah panggung baru yang benar-benar milik kita.
@@ -114,7 +114,7 @@
                         <span class="text-5xl mb-4 inline-block text-teal-500">🛡️</span>
                         <h3 class="text-2xl font-bold text-gray-900 mb-3">Bagi Penjaga Karya: Pahlawan Desentralisasi</h3>
                         <p class="text-gray-600 mb-4">
-                            Anda menjaga karya hidup dan memastikan harga tontonan tetap rendah. Anda menerima biaya jasa tetap <strong>Rp 5.000 per view</strong> dari Biaya Seeder yang dibayarkan penonton saat P2P aktif. Ini adalah insentif yang jelas bagi partisipasi.
+                            Anda menjaga karya hidup dan memastikan harga tontonan tetap rendah. Platform membayar Anda biaya jasa tetap <strong>Rp 8.000 hari per konten</strong> untuk hosting karya.
                         </p>
                         <p class="text-sm italic text-gray-500 mt-4">
                             Anda adalah benteng digital bagi karya yang Anda cintai.
@@ -162,18 +162,18 @@
                         Kami mengadopsi Model Biaya Berlapis (Layered Fee). Kreator mendapat <strong>100%</strong> dari harga konten. Platform Fee Sentral kini hanya <strong>Rp 8.000</strong> per tayangan, tetapi distribusi P2P masih lebih murah (hanya Rp 5.000), mendorong komunitas untuk mendistribusikan karya.
                     </p>
                     <p class="text-xl text-gray-600 mb-10 leading-relaxed">
-                        Jika 100% penonton Anda menggunakan P2P, Anda mendapatkan Rp 5.000.000, dan Platform (Panggungku) hanya mendapatkan Rp 0 dari biaya tayang. Panggungku hanya mengandalkan biaya unggah di awal.
+                        Jika 100% penonton Anda menggunakan P2P, Anda mendapatkan Rp 5.000.000. Dalam skenario ini, Panggungku mendapatkan Rp 5.000/view (Biaya Seeder) tetapi harus membayar host (Seeder) sebesar Rp 8.000 per hari per konten.
                     </p>
 
-                    <!-- SIMULASI NILAI EKONOMI (Expandable) -->
+                    <!-- SIMULASI NILAI EKONOMI (Expandable) - CREATOR -->
                     <div class="mt-12 w-full text-left rounded-2xl bg-indigo-50 border-2 border-indigo-200 shadow-xl">
-                        <!-- Tombol Expand -->
+                        <!-- Tombol Expand Kreator -->
                         <button id="toggle-simulasi" onclick="toggleSimulation()" class="w-full flex justify-between items-center p-5 text-indigo-800 font-extrabold text-lg hover:bg-indigo-100 transition duration-300 rounded-2xl">
                             <span>🧪 Coba Simulasi Pendapatan Kreator (<strong>100%</strong> Payout)</span>
                             <span id="toggle-icon" class="text-2xl transition-transform duration-500">▼</span>
                         </button>
                         
-                        <!-- Konten Simulasi (Awalnya tersembunyi/collapsed) -->
+                        <!-- Konten Simulasi Kreator (Awalnya tersembunyi/collapsed) -->
                         <div id="simulasi-content" class="simulation-container">
                             <div class="p-4 bg-white rounded-xl shadow-inner">
                                 <!-- Input -->
@@ -206,14 +206,14 @@
                                         <span id="result-creator-price" class="text-lg font-bold text-green-700">Rp 50.000</span>
                                     </div>
 
-                                    <div class="flex justify-between items-center border-b pb-2 text-pink-600">
+                                    <div id="platform-central-fee-view-row" class="flex justify-between items-center border-b pb-2 text-pink-600">
                                         <span class="text-lg font-medium text-pink-600">Biaya Platform Sentral per View (Hanya dibayar jika NO SEEDER)</span>
                                         <span id="result-platform-fee-view" class="text-lg font-bold">Rp 8.000</span>
                                     </div>
                                     
-                                    <div id="seeder-fee-view-row" class="flex justify-between items-center border-b pb-2 text-teal-600">
-                                        <span class="text-lg font-medium text-teal-600">Biaya Penjaga Karya per View (Hanya dibayar jika WITH SEEDER)</span>
-                                        <span id="result-seeder-fee-view" class="text-lg font-bold">Rp 5.000</span>
+                                    <div id="viewer-p2p-fee-row" class="flex justify-between items-center border-b pb-2 text-teal-600">
+                                        <span class="text-lg font-medium text-teal-600">Biaya P2P oleh Penonton (Saat WITH SEEDER)</span>
+                                        <span id="result-viewer-p2p-fee" class="text-lg font-bold">Rp 5.000</span>
                                     </div>
                                     
                                     <div class="flex justify-between items-center pt-2 border-t-2 border-gray-300">
@@ -233,19 +233,19 @@
                                     </div>
 
                                     <!-- Payout Seeder -->
-                                    <div id="seeder-payout-row" class="flex justify-between items-center p-3 rounded-lg bg-teal-50 border border-teal-300">
-                                        <span class="text-lg font-medium text-teal-800">Total Payout ke Penjaga Karya</span>
-                                        <span id="result-seeder-payout" class="text-lg font-bold text-teal-800">Rp 500.000</span>
+                                    <div id="seeder-payout-row" class="flex justify-between items-center p-3 rounded-lg bg-teal-50 border border-teal-300 opacity-50">
+                                        <span class="text-lg font-medium text-teal-800">Total Payout ke Penjaga Karya (Fixed Harian, Tidak Dihitung di Sini)</span>
+                                        <span id="result-seeder-payout" class="text-lg font-bold text-teal-800">Rp 0</span>
                                     </div>
                                     
                                     <!-- Pendapatan Platform -->
                                     <div class="flex justify-between items-center p-3 rounded-lg bg-pink-50 border border-pink-300">
-                                        <span class="text-lg font-medium text-pink-800">Total Revenue Panggungku (Dari Biaya Platform Sentral)</span>
+                                        <span class="text-lg font-medium text-pink-800">Total Revenue Panggungku (Dari Biaya Sentral/P2P Viewer)</span>
                                         <span id="result-op" class="text-lg font-bold text-pink-800">Rp 0</span>
                                     </div>
                                     
                                     <div class="mt-4 text-sm italic text-gray-500">
-                                        * Catatan: Revenue Panggungku pada skenario P2P hanya berasal dari Biaya Per Unggah Awal.
+                                        * Catatan: Payout Seeder kini adalah biaya fixed harian yang dibayarkan Platform. Revenue Panggungku di skenario P2P adalah Rp 5.000/view yang dikumpulkan dari Penonton.
                                     </div>
 
                                 </div>
@@ -254,7 +254,63 @@
                             </div>
                         </div>
                     </div>
-                    <!-- END SIMULASI -->
+                    <!-- END SIMULASI CREATOR -->
+
+
+                    <!-- SIMULASI NILAI EKONOMI (Expandable) - SEEDER (NEW LOGIC) -->
+                    <div class="mt-12 w-full text-left rounded-2xl bg-teal-50 border-2 border-teal-200 shadow-xl">
+                        <!-- Tombol Expand Seeder -->
+                        <button id="toggle-seeder-simulasi" onclick="toggleSeederSimulation()" class="w-full flex justify-between items-center p-5 text-teal-800 font-extrabold text-lg hover:bg-teal-100 transition duration-300 rounded-2xl">
+                            <span>💰 Coba Simulasi Pendapatan Penjaga Karya (Seeder)</span>
+                            <span id="toggle-seeder-icon" class="text-2xl transition-transform duration-500">▼</span>
+                        </button>
+                        
+                        <!-- Konten Simulasi Seeder (Awalnya tersembunyi/collapsed) -->
+                        <div id="seeder-simulasi-content" class="simulation-container">
+                            <div class="p-4 bg-white rounded-xl shadow-inner">
+                                <p class="text-sm text-gray-500 mb-4">Penghasilan Seeder berasal dari biaya hosting tetap <strong>Rp 8.000 per hari per konten</strong> yang dibayarkan oleh Platform (Panggungku).</p>
+
+                                <!-- Input Seeder: Jumlah Konten -->
+                                <label for="numContentSeeded" class="block text-gray-700 font-semibold mb-2">Jumlah Konten yang Di-seed (Hosted Content):</label>
+                                <input 
+                                    type="number" 
+                                    id="numContentSeeded" 
+                                    value="10" 
+                                    min="1"
+                                    oninput="calculateSeederEarnings()"
+                                    class="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500"
+                                >
+
+                                <!-- Input Seeder: Jumlah Hari -->
+                                <label for="numDaysSeeded" class="block text-gray-700 font-semibold mb-2">Jumlah Hari Hosting:</label>
+                                <input 
+                                    type="number" 
+                                    id="numDaysSeeded" 
+                                    value="30" 
+                                    min="1"
+                                    oninput="calculateSeederEarnings()"
+                                    class="w-full p-3 mb-6 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500"
+                                >
+                                
+                                <!-- Hasil Seeder -->
+                                <div class="space-y-4">
+                                    
+                                    <div class="flex justify-between items-center border-b pb-2">
+                                        <span class="text-lg font-medium text-gray-600">Fee Fixed Harian per Konten</span>
+                                        <span id="result-seeder-fee-fixed" class="text-lg font-bold text-teal-700">Rp 5.000</span>
+                                    </div>
+
+                                    <div class="flex justify-between items-center pt-2 border-t-2 border-gray-300">
+                                        <span class="text-xl font-bold text-gray-800">TOTAL PENDAPATAN ANDA SEBAGAI SEEDER</span>
+                                        <span id="result-seeder-total-income" class="text-2xl font-extrabold text-teal-700">Rp 1.500.000</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END SIMULASI SEEDER -->
+
                 </div>
             </div>
         </section>
@@ -307,71 +363,69 @@
         }).format(number);
     };
     
-    // Konstanta Biaya Tetap (Fixed Fees)
-    // Biaya Platform Sentral kini Rp 8.000
-    const PLATFORM_FEE_PER_VIEW = 8000; 
-    const SEEDER_FEE_PER_VIEW = 5000;   // Fixed fee for P2P distribution
-    const CREATOR_PRICE_DEFAULT = 50000; // Default creator price for simulation
-
-    // Fungsi Simulasi Ekonomi
+    // --- KONSTANTA BARU ---
+    const PLATFORM_CENTRAL_FEE = 8000;      // Biaya Platform Sentral (per view)
+    const VIEWER_P2P_FEE = 5000;            // Biaya P2P yang dibayar Penonton (per view)
+    const SEEDER_DAILY_PAY = 8000;          // Biaya Fixed Harian yang dibayar Platform ke Seeder (per konten)
+    const CREATOR_PRICE_DEFAULT = 50000;    // Harga konten kreator
+    
+    // DOM Elements for Creator Sim
+    const numViewsElement = document.getElementById('numViews');
+    const scenarioElement = document.getElementById('scenario');
+    const seederPayoutRow = document.getElementById('seeder-payout-row');
+    const platformCentralFeeViewRow = document.getElementById('platform-central-fee-view-row');
+    const viewerP2pFeeRow = document.getElementById('viewer-p2p-fee-row');
+    
+    // Fungsi Simulasi Ekonomi Kreator
     function calculateEarnings() {
-        const numViewsElement = document.getElementById('numViews');
-        const scenarioElement = document.getElementById('scenario');
         const numViews = parseFloat(numViewsElement.value) || 0;
         const scenario = scenarioElement.value;
         
         const creatorPrice = CREATOR_PRICE_DEFAULT;
-        let seederFeePerView, platformOperationalFeePerView, pricePerView;
-        let totalPlatformRevenue, totalSeederPayout;
+        let pricePerView;
+        let totalPlatformRevenue; // Revenue Platform dari biaya tayang
+        
+        // Perhitungan yang konsisten
+        const totalCreatorNet = numViews * creatorPrice;
 
         // Tentukan komponen biaya berdasarkan skenario
         if (scenario === 'with_seeder') {
-            // P2P: Customer pays Creator Price + SEEDER_FEE. Platform Fee is 0.
-            seederFeePerView = SEEDER_FEE_PER_VIEW; 
-            platformOperationalFeePerView = 0; // Panggungku gets 0 per view here.
+            // P2P: Customer pays Creator Price + VIEWER_P2P_FEE (50k + 5k = 55k)
+            pricePerView = creatorPrice + VIEWER_P2P_FEE; 
             
-            pricePerView = creatorPrice + seederFeePerView; // 50k + 5k = 55k
+            // Seeder Payout (fixed harian) adalah biaya operasional Platform, bukan dari view ini.
+            totalSeederPayout = 0; 
+            
+            // Platform Revenue KINI mengumpulkan Biaya P2P dari Penonton
+            totalPlatformRevenue = numViews * VIEWER_P2P_FEE;
 
-            totalSeederPayout = numViews * SEEDER_FEE_PER_VIEW;
-            totalPlatformRevenue = 0; // Panggungku only earns from the initial upload fee.
+            // Update visibility
+            seederPayoutRow.style.display = 'flex';
+            seederPayoutRow.classList.add('opacity-50');
+            platformCentralFeeViewRow.style.display = 'none';
+            viewerP2pFeeRow.style.display = 'flex';
 
-            // Update visibility for Seeder components
-            document.getElementById('seeder-fee-view-row').style.display = 'flex';
-            document.getElementById('seeder-payout-row').style.display = 'flex';
 
         } else { // no_seeder (Centralized)
-            // Centralized: Customer pays Creator Price + PLATFORM_FEE. Seeder Fee is 0.
-            seederFeePerView = 0;
-            platformOperationalFeePerView = PLATFORM_FEE_PER_VIEW; 
+            // Centralized: Customer pays Creator Price + PLATFORM_CENTRAL_FEE (50k + 8k = 58k)
+            pricePerView = creatorPrice + PLATFORM_CENTRAL_FEE; 
+
+            totalSeederPayout = 0; // Seeder tidak terlibat
             
-            pricePerView = creatorPrice + platformOperationalFeePerView; // 50k + 8k = 58k
-
-            totalSeederPayout = 0;
-            totalPlatformRevenue = numViews * PLATFORM_FEE_PER_VIEW;
-
-            // Update visibility for Seeder components
-            document.getElementById('seeder-fee-view-row').style.display = 'none';
-            document.getElementById('seeder-payout-row').style.display = 'none';
+            // Platform Revenue adalah Biaya Sentral
+            totalPlatformRevenue = numViews * PLATFORM_CENTRAL_FEE;
+            
+            // Update visibility
+            seederPayoutRow.style.display = 'none';
+            platformCentralFeeViewRow.style.display = 'flex';
+            viewerP2pFeeRow.style.display = 'none';
         }
 
-        // Perhitungan yang konsisten
-        const totalCreatorNet = numViews * creatorPrice;
         
         // Update UI
         document.getElementById('result-creator-price').textContent = formatRupiah(creatorPrice);
-        
-        // Dynamic fee display
-        const platformFeeDisplay = document.getElementById('result-platform-fee-view');
-        platformFeeDisplay.textContent = formatRupiah(PLATFORM_FEE_PER_VIEW);
-        platformFeeDisplay.parentElement.classList.toggle('opacity-50', scenario === 'with_seeder');
-        platformFeeDisplay.parentElement.classList.toggle('opacity-100', scenario === 'no_seeder');
-
-        const seederFeeDisplay = document.getElementById('result-seeder-fee-view');
-        seederFeeDisplay.textContent = formatRupiah(SEEDER_FEE_PER_VIEW);
-        seederFeeDisplay.parentElement.classList.toggle('opacity-50', scenario === 'no_seeder');
-        seederFeeDisplay.parentElement.classList.toggle('opacity-100', scenario === 'with_seeder');
-
-        // Total
+        document.getElementById('result-platform-fee-view').textContent = formatRupiah(PLATFORM_CENTRAL_FEE);
+        document.getElementById('result-viewer-p2p-fee').textContent = formatRupiah(VIEWER_P2P_FEE);
         document.getElementById('result-price-per-view').textContent = formatRupiah(pricePerView);
         
         // Ringkasan Payout
@@ -380,7 +434,7 @@
         document.getElementById('result-op').textContent = formatRupiah(totalPlatformRevenue);
     }
     
-    // Fungsi untuk Toggle Expand/Collapse Simulasi
+    // Fungsi untuk Toggle Expand/Collapse Simulasi Kreator
     function toggleSimulation() {
         const content = document.getElementById('simulasi-content');
         const icon = document.getElementById('toggle-icon');
@@ -390,6 +444,45 @@
         if (content.classList.contains('expanded')) {
             icon.style.transform = 'rotate(180deg)';
             calculateEarnings(); // Hitung pertama kali saat diexpand
+        } else {
+            icon.style.transform = 'rotate(0deg)';
+        }
+    }
+
+
+    // --- FUNGSI BARU UNTUK SIMULASI SEEDER ---
+    const numContentSeededElement = document.getElementById('numContentSeeded');
+    const numDaysSeededElement = document.getElementById('numDaysSeeded');
+
+    // Fungsi Simulasi Pendapatan Seeder
+    function calculateSeederEarnings() {
+        const numContent = parseFloat(numContentSeededElement.value) || 0;
+        const numDays = parseFloat(numDaysSeededElement.value) || 0;
+        
+        const dailyFixedFee = SEEDER_DAILY_PAY;
+        const totalIncome = numContent * numDays * dailyFixedFee;
+        
+        // Update UI
+        document.getElementById('result-seeder-fee-fixed').textContent = formatRupiah(dailyFixedFee);
+        document.getElementById('result-seeder-total-income').textContent = formatRupiah(totalIncome);
+        
+        // Update Total display label
+        const totalIncomeText = document.querySelector('#seeder-simulasi-content .pt-2 .font-bold');
+        if (totalIncomeText) {
+             totalIncomeText.textContent = `TOTAL PENDAPATAN ANDA SEBAGAI SEEDER (Konten: ${numContent}, Hari: ${numDays})`;
+        }
+    }
+
+    // Fungsi untuk Toggle Expand/Collapse Simulasi Seeder
+    function toggleSeederSimulation() {
+        const content = document.getElementById('seeder-simulasi-content');
+        const icon = document.getElementById('toggle-seeder-icon');
+
+        content.classList.toggle('expanded');
+        
+        if (content.classList.contains('expanded')) {
+            icon.style.transform = 'rotate(180deg)';
+            calculateSeederEarnings(); // Hitung pertama kali saat diexpand
         } else {
             icon.style.transform = 'rotate(0deg)';
         }
@@ -571,10 +664,23 @@
     // Hanya jalankan setelah DOM siap
     window.onload = function () {
         initThreeJS();
-        // Memastikan simulasi dihitung saat pertama kali dibuka (jika dibuka)
-        const content = document.getElementById('simulasi-content');
-        if (content.classList.contains('expanded')) {
+        
+        // Memastikan simulasi Creator dihitung saat pertama kali dibuka (jika dibuka)
+        const creatorContent = document.getElementById('simulasi-content');
+        if (creatorContent.classList.contains('expanded')) {
             calculateEarnings(); 
+        } else {
+             // Set default initial state for Creator simulation display
+             calculateEarnings(); 
+        }
+
+        // Memastikan simulasi Seeder dihitung saat pertama kali dibuka (jika dibuka)
+        const seederContent = document.getElementById('seeder-simulasi-content');
+        if (seederContent.classList.contains('expanded')) {
+            calculateSeederEarnings(); 
+        } else {
+             // Set default initial state for Seeder simulation display
+             calculateSeederEarnings();
         }
     };
 </script>
